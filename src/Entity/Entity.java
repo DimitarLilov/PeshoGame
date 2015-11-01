@@ -9,6 +9,7 @@ public abstract class Entity {
     public int x,y;
     public int width,height;
     public int facing =0;
+    public boolean smoking= false;
 
 
     public boolean jumping = false;
@@ -61,6 +62,23 @@ public abstract class Entity {
         return new Rectangle(getX(),getY(),width,height);
 
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public Rectangle getBoundsTop(){
         return new Rectangle(getX()+10,getY(),width-20,5);
     }

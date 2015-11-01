@@ -3,6 +3,7 @@ package Game;
 import Entity.Entity;
 import Entity.Player;
 import Entity.Bugs;
+import Entity.Koz;
 import Tile.Tile;
 import Tile.*;
 
@@ -21,11 +22,15 @@ public class Handler {
     public void render(Graphics g){
         for (int i = 0; i <entity.size() ; i++) {
             Entity e =entity.get(i);
-            if (Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea()))e.render(g);
+            if (Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())&&e.getId()!=Id.particle)e.render(g);
         }
         for (int i = 0; i < tile.size(); i++) {
             Tile t = tile.get(i);
             if (Game.getVisibleArea()!=null && t.getBounds().intersects(Game.getVisibleArea()))t.render(g);
+        }
+        for (int i = 0; i <entity.size() ; i++) {
+            Entity e =entity.get(i);
+            if (Game.getVisibleArea()!=null && e.getBounds().intersects(Game.getVisibleArea())&&e.getId()==Id.particle)e.render(g);
         }
 
     }
@@ -67,13 +72,18 @@ public class Handler {
                 if (red == 234 && green == 255 && blue == 0)addTile(new Cod(x*60,y*60,60,60,true,Id.cod,this,Game.blok));
                 if (red == 207 && green == 69 && blue == 0)addTile(new Floor(x*60,y*60,60,60,true,Id.wall,this));
                 if (red == 0 && green == 255 && blue == 0)addTile(new Blok(x*60,y*60,60,60,true,Id.blok,this));
+                if (red == 0 && green == 255 && blue == 255)addTile(new FinalLevel(x*60,y*60,60,60,true,Id.finalLevel,this));
                 if (red == 255 && green == 0 && blue == 0)addEntity(new Bugs(x*60,y*60,60,60,Id.bugs,this));
+                if (red == 67 && green == 67 && blue == 67)addEntity(new Koz(x * 60, y * 60, 59, 59, Id.koz, this));
                 if (red == 0 && green == 0 && blue == 255) addEntity(new Player(x*69,y*69,69,69, Id.player,this));
             }
             
         }
     }
-
+public void clearLevel(){
+    entity.clear();
+    tile.clear();
+}
 
 
 }

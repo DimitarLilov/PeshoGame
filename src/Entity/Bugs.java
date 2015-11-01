@@ -25,7 +25,7 @@ public class Bugs extends Entity {
                 break;
             case 1:
                 setVelX(2);
-                facing=2;
+                facing=1;
                 break;
         }
     }
@@ -57,10 +57,12 @@ public class Bugs extends Entity {
                 }
                 if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.cod) {
                     setVelX(1);
+
                     facing =1;
                 }
                 if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.cod) {
                     setVelX(-1);
+
                     facing= 0;
                 }
 
