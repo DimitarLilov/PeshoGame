@@ -85,7 +85,7 @@ public class Player extends Entity {
                 if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok ){
                     setVelX(0);
                     x = t.getX()-width;
-                    if (t.getId() == Id.finalLevel){
+                    if (t.getId() == Id.finalLevel && Game.countCode == (Game.elemetn-1)){
                         x = t.getX()-t.width;
                     }
                 }
@@ -119,7 +119,7 @@ public class Player extends Entity {
 
 
                 if (getBounds().intersects(t.getBounds())){
-                    if (t.getId() == Id.finalLevel){// && Game.countCode == Game.elementsLevel1.length-1){
+                    if (t.getId() == Id.finalLevel && Game.countCode == (Game.elemetn-1)){
                         x = t.getX()-t.width;
                         System.out.println(Game.finalPrint);
                         smokingKoz = false;

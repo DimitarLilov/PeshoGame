@@ -3,7 +3,6 @@ package Entity;
 import Game.Game;
 import Game.Handler;
 import Game.Id;
-import Tile.Tile;
 
 
 import java.awt.*;

@@ -47,7 +47,7 @@ public class Bugs extends Entity {
         for (int i = 0; i < handler.tile.size(); i++) {
             Tile t = handler.tile.get(i);
             if (t.isSolid()) {
-                if (getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.code) {
+                if (getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId() != Id.coins) {
                     setVelY(0);
                     if (falling) falling = false;
                 } else if (!falling) {
@@ -55,12 +55,12 @@ public class Bugs extends Entity {
                     falling = true;
 
                 }
-                if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.code) {
+                if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId() != Id.coins) {
                     setVelX(1);
 
                     facing =1;
                 }
-                if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code) {
+                if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code && t.getId() != Id.coins) {
                     setVelX(-1);
 
                     facing= 0;

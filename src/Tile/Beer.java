@@ -3,9 +3,6 @@ package Tile;
 import Game.Game;
 import Game.Handler;
 import Game.Id;
-import Tile.Tile;
-import gfx.Sprite;
-
 import java.awt.*;
 
 public class Beer extends Tile {

@@ -19,16 +19,19 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 320;
     public static final int HEIGHT = 180;
     public static final int SCALE = 4;
-    public static final String TITLE ="Pesho";
+    public static final String TITLE ="Super Pesho";
 
     private Thread thread;
     private boolean runing = false;
 
     private static BufferedImage[] levels;
+
     public static int countCode =0;
     public static int coins =0;
     public static int level =0;
     public static int countKoz =0;
+    public static int elemetn;
+
     public static String finalPrint ;
 
     public static boolean playing = false;
@@ -69,13 +72,16 @@ public class Game extends Canvas implements Runnable {
         cam = new Camera();
         launcher = new Launcher();
         mouse = new MouseInput();
+
         addKeyListener(new KeyInput());
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
+
         elementsLevel1 = new String[]{"","public","class","HelloJava","public","static","void","main(String[] args)","System.out.println","(\"Hello Java!\")"};
         elementsLevel2 = new String[]{"","q","w","e","r","t","y","u","i","o"}; // element lvl2
         elementsLevel3 = new String[]{""}; // element lvl3
         elementsLevel4 = new String[]{""}; // element lvl4
+
         player = new Sprite[6];
         bugs = new Sprite[6];
         koz = new Sprite[6];
@@ -83,36 +89,45 @@ public class Game extends Canvas implements Runnable {
         bar = new Sprite[9];
         cannabis = new Sprite[6];
         beer = new Sprite[2];
-        levels = new BufferedImage[4];
+        levels = new BufferedImage[5];
+
         barWall = new Sprite(1,2,barSheet);
         cod = new Sprite(7,2,sheet);
         coin = new Sprite(8,2,sheet);
         blok = new Sprite(7,3,sheet);
         smoking = new Sprite(1,7,sheet);
         keyR = new Sprite(5,7,sheet);
+
         if (level == 0){
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(1,1,sheet);
             finalPrint="Hello Java";
         }
+
         for (int i = 0; i <player.length ; i++) {
             player[i] = new Sprite(i+1,2,sheet);
         }
+
         for (int i = 0; i <bugs.length ; i++) {
             bugs[i] = new Sprite(i+1,3,sheet);
         }
+
         for (int i = 0; i <koz.length ; i++) {
             koz[i] = new Sprite(i+1,6,sheet);
         }
+
         for (int i = 0; i <finalLevel.length ; i++) {
             finalLevel[i] = new Sprite(i+1,4,sheet);
         }
+
         for (int i = 0; i <bar.length ; i++) {
             bar[i] = new Sprite(i+1,1,barSheet);
         }
+
         for (int i = 0; i <beer.length ; i++) {
             beer[i] = new Sprite(i+1,3,barSheet);
         }
+
         for (int i = 0; i <cannabis.length ; i++) {
             cannabis[i] = new Sprite(i+1,8,sheet);
         }
@@ -121,6 +136,7 @@ public class Game extends Canvas implements Runnable {
             levels[1] = ImageIO.read(getClass().getResource("/level2.png"));
             levels[2] = ImageIO.read(getClass().getResource("/level3.png"));
             levels[3] = ImageIO.read(getClass().getResource("/level4.png"));
+            levels[4] = ImageIO.read(getClass().getResource("/win.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,36 +164,26 @@ public class Game extends Canvas implements Runnable {
         init();
         requestFocus();
         long lastTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
+        double fps = 60.0;
         double delta =0.0;
-        double ns = 1000000000.0/60.0;
-        int frames =0;
-        int ticks =0;
+        double ns = 1000000000.0/ fps;
+
         while (runing){
             long now = System.nanoTime();
             delta += (now-lastTime)/ns;
             lastTime = now;
             while (delta >= 1){
                 tick();
-                ticks++;
                 delta--;
             }
             render();
-            frames++;
-            if (System.currentTimeMillis()-timer >100){
-                timer += 1000;
-                //System.out.println(frames + " Frame Per Second " + ticks + " Updates Per Second");
-                frames =0;
-                ticks =0;
-
-            }
         }
         stop();
     }
     public void  render(){
         BufferStrategy bs = getBufferStrategy();
         if (bs == null){
-            createBufferStrategy(3);
+            createBufferStrategy(2);
             return;
         }
         Graphics g = bs.getDrawGraphics();
@@ -194,24 +200,34 @@ public class Game extends Canvas implements Runnable {
 
 
         if (level ==0) {
-            for (int i = 0; i < elementsLevel1.length; i++) {
+            elemetn = elementsLevel1.length;
+            for (int i = 0; i < elemetn; i++) {
 
                     if (countCode >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
-                    g.drawString(" " + countCode + " / " + (elementsLevel1.length - 1), 30, 85);
+                    g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
             }
         }
         if (level ==1) {
-            for (int i = 0; i < elementsLevel2.length; i++) {
+            elemetn = elementsLevel2.length;
+            for (int i = 0; i < elemetn; i++) {
 
                 if (countCode >=i) g.drawString(elementsLevel2[i], 30, 90+i*20);
-                g.drawString(" " + countCode + " / " + (elementsLevel2.length - 1), 30, 85);
+                g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
             }
         }
         if (level ==2) {
-            //Print element
+            elemetn = elementsLevel3.length;
+            for (int i = 0; i < elemetn; i++) {
+                if (countCode >=i) g.drawString(elementsLevel3[i], 30, 90+i*20);
+                g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
+            }
         }
         if (level ==3) {
-            //Print element
+            elemetn = elementsLevel4.length;
+            for (int i = 0; i < elemetn; i++) {
+                if (countCode >=i) g.drawString(elementsLevel4[i], 30, 90+i*20);
+                g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
+            }
         }
 
         if(playing)g.translate(cam.getX(),cam.getY());
@@ -222,11 +238,13 @@ public class Game extends Canvas implements Runnable {
     }
     public void tick(){
       if (playing)handler.tick();
-
-        for (Entity e : handler.entity){
+        for (int j = 0; j < handler.entity.size(); j++) {
+            Entity e = handler.entity.get(j);
             if (e.getId()==Id.player){
                 cam.tick(e);
+
             }
+
         }
 
     }
@@ -249,9 +267,11 @@ public class Game extends Canvas implements Runnable {
         }if (level == 2){
             floor = new Sprite(6,1,sheet);
             grass = new Sprite(5,1,sheet);
+            finalPrint="level3";
         }if (level == 3){
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(7,1,sheet);
+            finalPrint="level4";
         }
     }
     public static Rectangle getVisibleArea(){
@@ -269,7 +289,7 @@ public class Game extends Canvas implements Runnable {
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         game.start();
 

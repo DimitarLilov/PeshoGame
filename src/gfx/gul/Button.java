@@ -22,7 +22,7 @@ public class Button {
     public  void render(Graphics g){
         g.setColor(Color.yellow);
         g.setFont(new Font("Century Gothic",Font.BOLD,50));
-        //g.drawRect(getX(),getY(),getWidth(),getHeight());
+
 
         FontMetrics fm = g.getFontMetrics();
         int stringX = (getWidth() - fm.stringWidth(getLabel()))/2;
