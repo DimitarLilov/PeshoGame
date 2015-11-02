@@ -12,6 +12,7 @@ public abstract class Tile {
 
     public boolean solid;
     public boolean activated = false;
+    public boolean noMoney = false;
 
 
     public int velX, velY;

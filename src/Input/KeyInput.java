@@ -41,11 +41,12 @@ public class KeyInput implements KeyListener {
                         en.setVelX(5);
                         en.facing = 1;
                         break;
-                    case  KeyEvent.VK_B:
-
-                        en.smoking = true;
-                        Game.countKoz=0;
-                        break;
+                    case  KeyEvent.VK_R:
+                        if (Game.countKoz!=0) {
+                            en.smoking = true;
+                            Game.countKoz = 0;
+                            break;
+                        }
                 }
             }
         }

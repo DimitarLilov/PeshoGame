@@ -9,13 +9,13 @@ import Tile.Tile;
 import java.awt.*;
 import java.util.Random;
 
-public class Bugs extends Entity {
+public class Koz extends Entity {
 
     private Random random = new Random();
     private int frame;
     private int frameDeloy;
 
-    public Bugs(int x, int y, int width, int height, Id id, Handler handler) {
+    public Koz(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
         int dir = random.nextInt(2);
         switch (dir){
@@ -34,9 +34,9 @@ public class Bugs extends Entity {
     public void render(Graphics g) {
 
         if (facing == 0){
-            g.drawImage(Game.bugs[3+frame].getBufferImage(),x,y,width,height,null);
+            g.drawImage(Game.koz[3+frame].getBufferImage(),x,y,width,height,null);
         } else if (facing ==1){
-            g.drawImage(Game.bugs[frame].getBufferImage(),x,y,width,height,null);
+            g.drawImage(Game.koz[frame].getBufferImage(),x,y,width,height,null);
         }
     }
 
@@ -57,12 +57,12 @@ public class Bugs extends Entity {
                 }
                 if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.code) {
                     setVelX(1);
-
+                    x = t.getX()+t.width;
                     facing =1;
                 }
                 if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code) {
                     setVelX(-1);
-
+                    x = t.getX()-width;
                     facing= 0;
                 }
 
@@ -84,5 +84,5 @@ public class Bugs extends Entity {
             }
         }
     }
-    }
+}
 

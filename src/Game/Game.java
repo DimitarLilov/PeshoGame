@@ -1,10 +1,8 @@
 package Game;
 
 import Entity.Entity;
-import Entity.Player;
 import Input.KeyInput;
 import Input.MouseInput;
-import Tile.Wall;
 import gfx.Sprite;
 import gfx.SpriteSheet;
 import gfx.gul.Launcher;
@@ -12,8 +10,6 @@ import gfx.gul.Launcher;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -29,7 +25,8 @@ public class Game extends Canvas implements Runnable {
     private boolean runing = false;
 
     private static BufferedImage[] levels;
-    public static int cods =0;
+    public static int countCode =0;
+    public static int coins =0;
     public static int level =0;
     public static int countKoz =0;
     public static String finalPrint ;
@@ -37,22 +34,26 @@ public class Game extends Canvas implements Runnable {
     public static boolean playing = false;
 
     public static Handler handler;
-    public static SpriteSheet sheet;
+    public static SpriteSheet sheet,barSheet;
     public static Camera cam;
     public static Launcher launcher;
     public static MouseInput mouse;
 
     public static Sprite grass;
     public static Sprite floor;
+    public static Sprite barWall;
     public static Sprite cod;
+    public static Sprite coin;
     public static Sprite blok;
     public static Sprite smoking;
-    public static Sprite keyB;
+    public static Sprite keyR;
 
     public static Sprite[] player;
     public static Sprite[] bugs;
     public static Sprite[] koz;
     public static Sprite[] finalLevel;
+    public static Sprite[] bar;
+    public static Sprite[] beer;
     public static Sprite[] cannabis;
     public static String[] elementsLevel1 , elementsLevel2,elementsLevel3,elementsLevel4;
     public  Game(){
@@ -64,6 +65,7 @@ public class Game extends Canvas implements Runnable {
     private void init(){
         handler = new Handler();
         sheet = new SpriteSheet("/Sprite.png");
+        barSheet = new SpriteSheet("/bar.png");
         cam = new Camera();
         launcher = new Launcher();
         mouse = new MouseInput();
@@ -78,12 +80,16 @@ public class Game extends Canvas implements Runnable {
         bugs = new Sprite[6];
         koz = new Sprite[6];
         finalLevel = new Sprite[10];
+        bar = new Sprite[9];
         cannabis = new Sprite[6];
+        beer = new Sprite[2];
         levels = new BufferedImage[4];
+        barWall = new Sprite(1,2,barSheet);
         cod = new Sprite(7,2,sheet);
+        coin = new Sprite(8,2,sheet);
         blok = new Sprite(7,3,sheet);
         smoking = new Sprite(1,7,sheet);
-        keyB = new Sprite(5,7,sheet);
+        keyR = new Sprite(5,7,sheet);
         if (level == 0){
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(1,1,sheet);
@@ -100,6 +106,12 @@ public class Game extends Canvas implements Runnable {
         }
         for (int i = 0; i <finalLevel.length ; i++) {
             finalLevel[i] = new Sprite(i+1,4,sheet);
+        }
+        for (int i = 0; i <bar.length ; i++) {
+            bar[i] = new Sprite(i+1,1,barSheet);
+        }
+        for (int i = 0; i <beer.length ; i++) {
+            beer[i] = new Sprite(i+1,3,barSheet);
         }
         for (int i = 0; i <cannabis.length ; i++) {
             cannabis[i] = new Sprite(i+1,8,sheet);
@@ -172,24 +184,27 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.cyan);
         g.fillRect(0,0,getWidth(),getHeight());
         g.drawImage(Game.cod.getBufferImage(),20,20,75,75,null);
-        if (countKoz!=0){
-            g.drawImage(Game.keyB.getBufferImage(),100,30,75,75,null);
-        }
+        g.drawImage(Game.coin.getBufferImage(),100,20,75,75,null);
         g.setColor(Color.white);
         g.setFont(new Font("Courier", Font.BOLD, 20));
+        g.drawString(""+coins,170,90);
+        if (countKoz!=0){
+            g.drawImage(Game.keyR.getBufferImage(),200,20,75,75,null);
+        }
+
 
         if (level ==0) {
             for (int i = 0; i < elementsLevel1.length; i++) {
 
-                    if (cods >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
-                    g.drawString(" " + cods + " / " + (elementsLevel1.length - 1), 30, 85);
+                    if (countCode >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
+                    g.drawString(" " + countCode + " / " + (elementsLevel1.length - 1), 30, 85);
             }
         }
         if (level ==1) {
             for (int i = 0; i < elementsLevel2.length; i++) {
 
-                if (cods >=i) g.drawString(elementsLevel2[i], 30, 90+i*20);
-                g.drawString(" " + cods + " / " + (elementsLevel2.length - 1), 30, 85);
+                if (countCode >=i) g.drawString(elementsLevel2[i], 30, 90+i*20);
+                g.drawString(" " + countCode + " / " + (elementsLevel2.length - 1), 30, 85);
             }
         }
         if (level ==2) {
@@ -223,7 +238,7 @@ public class Game extends Canvas implements Runnable {
         return HEIGHT*SCALE;
     }
     public static void switchLevel(){
-        cods =0;
+        countCode =0;
         handler.clearLevel();
         handler.createLevel(levels[level]);
         if (level == 1){

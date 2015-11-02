@@ -5,7 +5,6 @@ import Game.Handler;
 import Game.Id;
 import Tile.Tile;
 import Tile.Trail;
-import Tile.Cod;
 
 import java.awt.*;
 import java.util.Random;
@@ -62,7 +61,7 @@ public class Player extends Entity {
         for (int i = 0; i < handler.tile.size(); i++) {
             Tile t = handler.tile.get(i);
             if (t.isSolid()){
-                if (getBoundsTop().intersects(t.getBounds())&&t.getId()!=Id.cod&&t.getId()!=Id.blok){
+                if (getBoundsTop().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok){
                     setVelX(0);
                     if (jumping){
                         jumping = false;
@@ -70,7 +69,7 @@ public class Player extends Entity {
                         falling = true;
                     }
                 }
-                if (getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.cod&&t.getId()!=Id.blok) {
+                if (getBoundsBottom().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok) {
                     setVelY(0);
                     if (falling) falling = false;
                 }else {
@@ -79,28 +78,48 @@ public class Player extends Entity {
                         falling = true;
                     }
                 }
-                if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.cod&&t.getId()!=Id.blok){
+                if (getBoundsLeft().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok){
                     setVelX(0);
                     x = t.getX()+t.width;
                 }
-                if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.cod&&t.getId()!=Id.blok ){
+                if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok ){
                     setVelX(0);
                     x = t.getX()-width;
                     if (t.getId() == Id.finalLevel){
                         x = t.getX()-t.width;
                     }
                 }
-                if (getBounds().intersects(t.getBounds())&&t.getId()==Id.cod&&!t.activated){
+                if (getBounds().intersects(t.getBounds())&&t.getId()==Id.code&&!t.activated){
                     t.activated = true;
 
-                        Game.cods++;
+                        Game.countCode++;
 
+
+                }
+                if (getBounds().intersects(t.getBounds())&&t.getId()==Id.coins){
+                    Game.coins++;
+                    t.die();
+
+                }
+                if (getBounds().intersects(t.getBounds())&&t.getId()==Id.beer){
+                    if (Game.coins >=15){
+                        Game.coins -=15;
+                        int tpX = getX();
+                        int tpY= getY();
+                        width += (width/4);
+                        height += (height/4);
+                        setX(tpX - width );
+                        setY(tpY - height);
+                        t.die();
+                    } else {
+                        t.noMoney=true;
+                    }
 
                 }
 
 
                 if (getBounds().intersects(t.getBounds())){
-                    if (t.getId() == Id.finalLevel && Game.cods == Game.elementsLevel1.length-1){
+                    if (t.getId() == Id.finalLevel && Game.countCode == Game.elementsLevel1.length-1){
                         x = t.getX()-t.width;
                         System.out.println(Game.finalPrint);
                         smokingKoz = false;
@@ -114,7 +133,7 @@ public class Player extends Entity {
                     if (e.getId()==Id.bugs){
                         if (getBounds().intersects(e.getBounds())){
                             t.activated=false;
-                            Game.cods = 0;
+                            Game.countCode = 0;
                         }
                     }
                     if (e.getId()==Id.koz){

@@ -3,8 +3,10 @@ package Game;
 import Entity.Entity;
 import Entity.Player;
 import Entity.Bugs;
+import Tile.Beer;
 import Entity.Koz;
 import Tile.Tile;
+import Tile.Code;
 import Tile.*;
 
 
@@ -69,10 +71,14 @@ public class Handler {
                 int blue = (pixel) & 0xff;
 
                 if (red == 0 && green == 0 && blue == 0)addTile(new Wall(x*60,y*60,60,60,true,Id.wall,this));
-                if (red == 234 && green == 255 && blue == 0)addTile(new Cod(x*60,y*60,60,60,true,Id.cod,this,Game.blok));
+                if (red == 234 && green == 255 && blue == 0)addTile(new Code(x*60,y*60,60,60,true,Id.code,this,Game.blok));
+                if (red == 255 && green == 255 && blue == 0)addTile(new Coins(x*60,y*60,60,60,true,Id.coins,this));
+                if (red == 255 && green == 100 && blue == 0)addTile(new Beer(x * 60, y * 60, 60, 60, true, Id.beer, this));
                 if (red == 207 && green == 69 && blue == 0)addTile(new Floor(x*60,y*60,60,60,true,Id.wall,this));
+                if (red == 100 && green == 100 && blue == 100)addTile(new BarWall(x*60,y*60,60,60,true,Id.wall,this));
                 if (red == 0 && green == 255 && blue == 0)addTile(new Blok(x*60,y*60,60,60,true,Id.blok,this));
                 if (red == 0 && green == 255 && blue == 255)addTile(new FinalLevel(x*60,y*60,60,60,true,Id.finalLevel,this));
+                if (red == 136 && green == 0 && blue == 0)addTile(new Bar(x*60,y*60,60*12,60,true,Id.bar,this));
                 if (red == 255 && green == 0 && blue == 0)addEntity(new Bugs(x*60,y*60,60,60,Id.bugs,this));
                 if (red == 67 && green == 67 && blue == 67)addEntity(new Koz(x * 60, y * 60, 59, 59, Id.koz, this));
                 if (red == 0 && green == 0 && blue == 255) addEntity(new Player(x*69,y*69,69,69, Id.player,this));
