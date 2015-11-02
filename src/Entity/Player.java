@@ -119,11 +119,12 @@ public class Player extends Entity {
 
 
                 if (getBounds().intersects(t.getBounds())){
-                    if (t.getId() == Id.finalLevel && Game.countCode == Game.elementsLevel1.length-1){
+                    if (t.getId() == Id.finalLevel){// && Game.countCode == Game.elementsLevel1.length-1){
                         x = t.getX()-t.width;
                         System.out.println(Game.finalPrint);
                         smokingKoz = false;
                         smoking = false;
+                        Game.coins = 0;
                         Game.level++;
                         Game.switchLevel();
                     }

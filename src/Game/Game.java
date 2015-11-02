@@ -119,8 +119,8 @@ public class Game extends Canvas implements Runnable {
         try {
             levels[0] = ImageIO.read(getClass().getResource("/level1.png"));
             levels[1] = ImageIO.read(getClass().getResource("/level2.png"));
-            levels[2] = ImageIO.read(getClass().getResource("/level2.png"));
-            levels[3] = ImageIO.read(getClass().getResource("/level2.png"));
+            levels[2] = ImageIO.read(getClass().getResource("/level3.png"));
+            levels[3] = ImageIO.read(getClass().getResource("/level4.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
