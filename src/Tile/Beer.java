@@ -14,7 +14,7 @@ public class Beer extends Tile {
     @Override
     public void render(Graphics g) {
         g.drawImage(Game.beer[0].getBufferImage(), getX(), getY(), width, 60, null);
-        if (noMoney)g.drawImage(Game.beer[1].getBufferImage(), getX()+120, getY()-80, width, 60, null);
+        if (noMoney)g.drawImage(Game.beer[1].getBufferImage(), getX()+140, getY()-90, width, 60, null);
     }
 
     @Override

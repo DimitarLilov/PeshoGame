@@ -20,11 +20,11 @@ public class Bugs extends Entity {
         int dir = random.nextInt(2);
         switch (dir){
             case 0:
-                setVelX(-2);
+                setVelX(-1);
                 facing =0;
                 break;
             case 1:
-                setVelX(2);
+                setVelX(1);
                 facing=1;
                 break;
         }

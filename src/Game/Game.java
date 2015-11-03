@@ -86,7 +86,7 @@ public class Game extends Canvas implements Runnable {
         bugs = new Sprite[6];
         koz = new Sprite[6];
         finalLevel = new Sprite[10];
-        bar = new Sprite[9];
+        bar = new Sprite[10];
         cannabis = new Sprite[6];
         beer = new Sprite[2];
         levels = new BufferedImage[5];

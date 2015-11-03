@@ -47,6 +47,7 @@ public class Player extends Entity {
         x+=velX;
         y+=velY;
         if (invincible) {
+
             if (facing == 0)
                 handler.addTile(new Trail(getX(), getY(), getWidth(), getHeight(), false, Id.trail, handler, Game.player[3 + frame].getBufferImage()));
             else if (facing == 1)
@@ -85,7 +86,7 @@ public class Player extends Entity {
                 if (getBoundsRight().intersects(t.getBounds())&&t.getId()!=Id.code&&t.getId()!=Id.coins&&t.getId()!=Id.beer&&t.getId()!=Id.blok ){
                     setVelX(0);
                     x = t.getX()-width;
-                    if (t.getId() == Id.finalLevel && Game.countCode == (Game.elemetn-1)){
+                    if (t.getId() == Id.finalLevel && Game.countCode >= (Game.elemetn-1)){
                         x = t.getX()-t.width;
                     }
                 }
@@ -119,7 +120,7 @@ public class Player extends Entity {
 
 
                 if (getBounds().intersects(t.getBounds())){
-                    if (t.getId() == Id.finalLevel && Game.countCode == (Game.elemetn-1)){
+                    if (t.getId() == Id.finalLevel && Game.countCode >= (Game.elemetn-1)){
                         x = t.getX()-t.width;
                         System.out.println(Game.finalPrint);
                         smokingKoz = false;
