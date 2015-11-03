@@ -15,7 +15,7 @@ public class KeyInput implements KeyListener {
         int key = e.getKeyCode();
         for (int i = 0; i <Game.handler.entity.size() ; i++) {
             Entity en = Game.handler.entity.get(i);
-            if (en.getId() == Id.player) {
+            if (en.getId() == Id.player && !Game.phone) {
 
 
                 switch (key) {
@@ -25,11 +25,11 @@ public class KeyInput implements KeyListener {
                             en.gravity = 8.0;
                         }
                         break;
-                    case KeyEvent.VK_LEFT :
+                    case KeyEvent.VK_LEFT:
                         en.setVelX(-5);
                         en.facing = 0;
                         break;
-                    case KeyEvent.VK_A :
+                    case KeyEvent.VK_A:
                         en.setVelX(-5);
                         en.facing = 0;
                         break;
@@ -41,15 +41,27 @@ public class KeyInput implements KeyListener {
                         en.setVelX(5);
                         en.facing = 1;
                         break;
-                    case  KeyEvent.VK_R:
-                        if (Game.countKoz!=0) {
+                    case KeyEvent.VK_R:
+                        if (Game.countKoz != 0) {
                             en.smoking = true;
                             Game.countKoz = 0;
                             break;
                         }
+                    case KeyEvent.VK_L:
+                        Game.countCode++;
                 }
             }
-        }
+                switch (key){
+                    case  KeyEvent.VK_F:
+                        if (!Game.phone) {
+                            Game.phone = true;
+                        } else {
+                            Game.phone = false;
+                        }
+                        break;
+                }
+            }
+
     }
 
     @Override

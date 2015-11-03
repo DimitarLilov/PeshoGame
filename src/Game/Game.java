@@ -3,6 +3,8 @@ package Game;
 import Entity.Entity;
 import Input.KeyInput;
 import Input.MouseInput;
+import com.sun.deploy.ui.ImageLoader;
+import gfx.ImageLoad;
 import gfx.Sprite;
 import gfx.SpriteSheet;
 import gfx.gul.Launcher;
@@ -24,6 +26,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean runing = false;
 
+
     private static BufferedImage[] levels;
 
     public static int countCode =0;
@@ -35,9 +38,11 @@ public class Game extends Canvas implements Runnable {
     public static String finalPrint ;
 
     public static boolean playing = false;
+    public static boolean phone = false;
+    public static boolean drinkBeer = false;
 
     public static Handler handler;
-    public static SpriteSheet sheet,barSheet;
+    public static SpriteSheet sheet,barSheet, phoneImage;
     public static Camera cam;
     public static Launcher launcher;
     public static MouseInput mouse;
@@ -68,6 +73,7 @@ public class Game extends Canvas implements Runnable {
     private void init(){
         handler = new Handler();
         sheet = new SpriteSheet("/Sprite.png");
+        phoneImage = new SpriteSheet("/phone.png");
         barSheet = new SpriteSheet("/bar.png");
         cam = new Camera();
         launcher = new Launcher();
@@ -173,10 +179,11 @@ public class Game extends Canvas implements Runnable {
             delta += (now-lastTime)/ns;
             lastTime = now;
             while (delta >= 1){
+                render();
                 tick();
                 delta--;
             }
-            render();
+
         }
         stop();
     }
@@ -186,9 +193,12 @@ public class Game extends Canvas implements Runnable {
             createBufferStrategy(2);
             return;
         }
+
         Graphics g = bs.getDrawGraphics();
+
         g.setColor(Color.cyan);
         g.fillRect(0,0,getWidth(),getHeight());
+
         g.drawImage(Game.cod.getBufferImage(),20,20,75,75,null);
         g.drawImage(Game.coin.getBufferImage(),100,20,75,75,null);
         g.setColor(Color.white);
@@ -200,11 +210,17 @@ public class Game extends Canvas implements Runnable {
 
 
         if (level ==0) {
+            if (phone && !drinkBeer){
+                g.drawImage(ImageLoad.loadImage("/phone.png"),350,0,null);
+            } else if (phone){
+                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),350,0,null);
+            }
             elemetn = elementsLevel1.length;
             for (int i = 0; i < elemetn; i++) {
 
                     if (countCode >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
                     g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
+
             }
         }
         if (level ==1) {

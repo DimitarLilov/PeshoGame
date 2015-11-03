@@ -27,7 +27,7 @@ public class Player extends Entity {
 
         if (smokingKoz&& smoking){
             stepSmoking++;
-            if (stepSmoking % 1300 == 0)
+            if (stepSmoking % 500 == 0)
             {
                 smokingKoz = false;
                 smoking = false;
@@ -105,6 +105,7 @@ public class Player extends Entity {
                 if (getBounds().intersects(t.getBounds())&&t.getId()==Id.beer){
                     if (Game.coins >=15){
                         Game.coins -=15;
+                        Game.drinkBeer = true;
                         int tpX = getX();
                         int tpY= getY();
                         width += (width/4);
