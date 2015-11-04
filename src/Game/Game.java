@@ -3,7 +3,6 @@ package Game;
 import Entity.Entity;
 import Input.KeyInput;
 import Input.MouseInput;
-import com.sun.deploy.ui.ImageLoader;
 import gfx.ImageLoad;
 import gfx.Sprite;
 import gfx.SpriteSheet;
@@ -42,19 +41,12 @@ public class Game extends Canvas implements Runnable {
     public static boolean drinkBeer = false;
 
     public static Handler handler;
-    public static SpriteSheet sheet,barSheet, phoneImage;
+    public static SpriteSheet sheet,barSheet,win;
     public static Camera cam;
     public static Launcher launcher;
     public static MouseInput mouse;
 
-    public static Sprite grass;
-    public static Sprite floor;
-    public static Sprite barWall;
-    public static Sprite cod;
-    public static Sprite coin;
-    public static Sprite blok;
-    public static Sprite smoking;
-    public static Sprite keyR;
+    public static Sprite grass,floor,barWall,cod,coin,blok, smoking,keyR;
 
     public static Sprite[] player;
     public static Sprite[] bugs;
@@ -73,8 +65,8 @@ public class Game extends Canvas implements Runnable {
     private void init(){
         handler = new Handler();
         sheet = new SpriteSheet("/Sprite.png");
-        phoneImage = new SpriteSheet("/phone.png");
         barSheet = new SpriteSheet("/bar.png");
+        win = new SpriteSheet("/win.png");
         cam = new Camera();
         launcher = new Launcher();
         mouse = new MouseInput();
@@ -83,7 +75,7 @@ public class Game extends Canvas implements Runnable {
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
 
-        elementsLevel1 = new String[]{"","public","class","HelloJava","public","static","void","main(String[] args)","System.out.println","(\"Hello Java!\")"};
+        elementsLevel1 = new String[]{"","public","class","HelloWorld","public","static","void","main(String[] args)","System.out.println","(\"Hello World!\")"};
         elementsLevel2 = new String[]{"","q","w","e","r","t","y","u","i","o"}; // element lvl2
         elementsLevel3 = new String[]{""}; // element lvl3
         elementsLevel4 = new String[]{""}; // element lvl4
@@ -92,11 +84,10 @@ public class Game extends Canvas implements Runnable {
         bugs = new Sprite[6];
         koz = new Sprite[6];
         finalLevel = new Sprite[10];
-        bar = new Sprite[10];
+        bar = new Sprite[9];
         cannabis = new Sprite[6];
         beer = new Sprite[2];
         levels = new BufferedImage[5];
-
         barWall = new Sprite(1,2,barSheet);
         cod = new Sprite(7,2,sheet);
         coin = new Sprite(8,2,sheet);
@@ -107,7 +98,7 @@ public class Game extends Canvas implements Runnable {
         if (level == 0){
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(1,1,sheet);
-            finalPrint="Hello Java";
+            finalPrint="Hello World!";
         }
 
         for (int i = 0; i <player.length ; i++) {
@@ -143,11 +134,14 @@ public class Game extends Canvas implements Runnable {
             levels[2] = ImageIO.read(getClass().getResource("/level3.png"));
             levels[3] = ImageIO.read(getClass().getResource("/level4.png"));
             levels[4] = ImageIO.read(getClass().getResource("/win.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         handler.clearLevel();
         handler.createLevel(levels[level]);
+
     }
     private synchronized void start(){
         if (runing) return;
@@ -185,6 +179,7 @@ public class Game extends Canvas implements Runnable {
             }
 
         }
+
         stop();
     }
     public void  render(){
@@ -194,11 +189,10 @@ public class Game extends Canvas implements Runnable {
             return;
         }
 
+
         Graphics g = bs.getDrawGraphics();
-
         g.setColor(Color.cyan);
-        g.fillRect(0,0,getWidth(),getHeight());
-
+        g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(Game.cod.getBufferImage(),20,20,75,75,null);
         g.drawImage(Game.coin.getBufferImage(),100,20,75,75,null);
         g.setColor(Color.white);
@@ -211,19 +205,24 @@ public class Game extends Canvas implements Runnable {
 
         if (level ==0) {
             if (phone && !drinkBeer){
-                g.drawImage(ImageLoad.loadImage("/phone.png"),350,0,null);
+                g.drawImage(ImageLoad.loadImage("/phone.png"),320,0,null);
             } else if (phone){
-                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),350,0,null);
+                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),320,0,null);
             }
             elemetn = elementsLevel1.length;
             for (int i = 0; i < elemetn; i++) {
 
-                    if (countCode >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
-                    g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
+                if (countCode >=i) g.drawString(elementsLevel1[i], 30, 90+i*20);
+                g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
 
             }
         }
         if (level ==1) {
+            if (phone && !drinkBeer){
+                g.drawImage(ImageLoad.loadImage("/phoneLvl2.png"),320,0,null);
+            } else if (phone){
+                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),320,0,null);
+            }
             elemetn = elementsLevel2.length;
             for (int i = 0; i < elemetn; i++) {
 
@@ -244,10 +243,18 @@ public class Game extends Canvas implements Runnable {
                 if (countCode >=i) g.drawString(elementsLevel4[i], 30, 90+i*20);
                 g.drawString(" " + countCode + " / " + (elemetn - 1), 30, 85);
             }
+        } if (level == 4){
+            g.setColor(Color.white);
+            g.fillRect(0, 0, getWidth(), getHeight());
+           g.drawImage(ImageLoad.loadImage("/win.png"),0,0,null);
         }
 
+
         if(playing)g.translate(cam.getX(),cam.getY());
-        if(playing) handler.render(g);
+        if(playing) {
+            handler.render(g);
+
+        }
         else if (!playing) launcher.render(g);
         g.dispose();
         bs.show();
