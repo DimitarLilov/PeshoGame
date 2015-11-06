@@ -281,6 +281,7 @@ public class Game extends Canvas implements Runnable {
     }
     public static void switchLevel(){
         countCode =0;
+        drinkBeer = false;
         handler.clearLevel();
         handler.createLevel(levels[level]);
         if (level == 1){
