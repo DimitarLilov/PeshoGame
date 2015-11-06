@@ -20,7 +20,7 @@ public class Player extends Entity {
 
     public Player(int x , int y, int width, int height,  Id id, Handler handler){
         super(x,y,width,height,id,handler);
-        random = new Random();
+        this.random = new Random();
     }
 
     public void render(Graphics g) {

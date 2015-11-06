@@ -69,7 +69,5 @@ public class Button {
         return label;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
+
 }

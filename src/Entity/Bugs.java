@@ -11,12 +11,12 @@ import java.util.Random;
 
 public class Bugs extends Entity {
 
-    private Random random = new Random();
     private int frame;
     private int frameDeloy;
 
     public Bugs(int x, int y, int width, int height, Id id, Handler handler) {
         super(x, y, width, height, id, handler);
+        Random random = new Random();
         int dir = random.nextInt(2);
         switch (dir){
             case 0:

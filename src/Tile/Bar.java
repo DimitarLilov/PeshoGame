@@ -24,13 +24,6 @@ public class Bar extends Tile {
         g.drawImage(Game.bar[6].getBufferImage(), getX()+540, getY()-120, width/12, 60, null);
         g.drawImage(Game.bar[7].getBufferImage(), getX()+600, getY()-120, width/12, 60, null);
         g.drawImage(Game.bar[8].getBufferImage(), getX()+650, getY()-120, width/12, 60, null);
-
-
-
-
-
-
-
     }
 
     @Override

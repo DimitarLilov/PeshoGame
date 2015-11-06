@@ -1,7 +1,6 @@
 package Tile;
 
 
-import Game.Game;
 import Game.Handler;
 import Game.Id;
 

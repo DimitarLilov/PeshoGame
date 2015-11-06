@@ -17,8 +17,8 @@ public class Launcher {
     public void render(Graphics g){
         g.setColor(Color.cyan);
         g.fillRect(0,0,Game.getFrameWight(), Game.getFrameHeight());
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].render(g);
+        for (Button button : buttons) {
+            button.render(g);
         }
     }
 }

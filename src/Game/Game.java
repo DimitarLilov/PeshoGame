@@ -61,6 +61,7 @@ public class Game extends Canvas implements Runnable {
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);
+
     }
     private void init(){
         handler = new Handler();
@@ -70,6 +71,7 @@ public class Game extends Canvas implements Runnable {
         cam = new Camera();
         launcher = new Launcher();
         mouse = new MouseInput();
+
 
         addKeyListener(new KeyInput());
         addMouseListener(mouse);
@@ -167,7 +169,6 @@ public class Game extends Canvas implements Runnable {
         double fps = 60.0;
         double delta =0.0;
         double ns = 1000000000.0/ fps;
-
         while (runing){
             long now = System.nanoTime();
             delta += (now-lastTime)/ns;

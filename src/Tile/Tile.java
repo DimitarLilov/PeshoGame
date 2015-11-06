@@ -15,7 +15,6 @@ public abstract class Tile {
     public boolean noMoney = false;
 
 
-    public int velX, velY;
     public Id id;
     public Handler handler;
 
@@ -53,12 +52,7 @@ public abstract class Tile {
         return solid;
     }
 
-    public void setVelX(int velX) {
-        this.velX = velX;
-    }
-    public void setVelY(int velY) {
-        this.velY = velY;
-    }
+
 
     public int getWidth() {
         return width;
