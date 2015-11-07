@@ -80,7 +80,7 @@ public class Game extends Canvas implements Runnable {
         elementsLevel1 = new String[]{"","public","class","HelloWorld","public","static","void","main(String[] args)","System.out.println","(\"Hello World!\")"};
         elementsLevel2 = new String[]{"","q","w","e","r","t","y","u","i","o"}; // element lvl2
         elementsLevel3 = new String[]{""}; // element lvl3
-        elementsLevel4 = new String[]{""}; // element lvl4
+        elementsLevel4 = new String[]{"","public class","AlienGreeting","public static void","main(String[] args)","byte[] encryptedMessage", " = {97,121,121,32,108,109,97,111};","System.out.println(\"Translated: \"", "+ new String(encryptedMessage));"};
 
         player = new Sprite[6];
         bugs = new Sprite[6];
