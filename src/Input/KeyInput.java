@@ -63,7 +63,6 @@ public class KeyInput implements KeyListener {
             }
 
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

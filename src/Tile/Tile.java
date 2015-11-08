@@ -14,7 +14,6 @@ public abstract class Tile {
     public boolean activated = false;
     public boolean noMoney = false;
 
-
     public Id id;
     public Handler handler;
 
@@ -43,33 +42,24 @@ public abstract class Tile {
     public void setY(int y){
         this.y = y;
     }
-
     public Id getId(){
         return id;
     }
-
     public boolean isSolid(){
         return solid;
     }
-
-
-
     public int getWidth() {
         return width;
     }
-
     public void setWidth(int width) {
         this.width = width;
     }
-
     public int getHeight() {
         return height;
     }
-
     public void setHeight(int height) {
         this.height = height;
     }
-
     public Rectangle getBounds(){
         return new Rectangle(getX(),getY(),width,height);
 
