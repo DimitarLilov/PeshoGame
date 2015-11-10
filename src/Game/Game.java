@@ -112,6 +112,15 @@ public class Game extends Canvas implements Runnable {
             grass = new Sprite(1,1,sheet);
             finalPrint="Hello World!";
         }
+        if (level == 1) {
+            finalPrint = "qwertyuio";
+        }
+        if (level == 2) {
+            finalPrint = "";
+        }
+        if (level == 3) {
+            finalPrint = "Translated: ayy lmao";
+        }
 
         for (int i = 0; i <player.length ; i++) {
             player[i] = new Sprite(i+1,2,sheet);
