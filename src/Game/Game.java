@@ -318,6 +318,8 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args) throws MalformedURLException {
         Game game = new Game();
         JFrame frame = new JFrame(TITLE);
+        ImageIcon icon = new ImageIcon("D:\\Software Univerity Sofia softuni.bg\\C# Fundamental level\\Java\\TeamWorkProject\\PeshoGame\\trunk\\res\\icon.png");
+        frame.setIconImage(icon.getImage());
         frame.add(game);
         frame.pack();
         frame.setResizable(false);
