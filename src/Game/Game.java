@@ -8,12 +8,15 @@ import gfx.Sprite;
 import gfx.SpriteSheet;
 import gfx.gul.Launcher;
 
+import javax.annotation.Resources;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Game extends Canvas implements Runnable {
 
@@ -56,6 +59,8 @@ public class Game extends Canvas implements Runnable {
     public static Sprite[] beer;
     public static Sprite[] cannabis;
     public static String[] elementsLevel1 , elementsLevel2,elementsLevel3,elementsLevel4;
+    private static Window frame;
+
     public  Game(){
         Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
         setPreferredSize(size);
@@ -63,6 +68,11 @@ public class Game extends Canvas implements Runnable {
         setMinimumSize(size);
 
     }
+
+    public static Window getFrame() {
+        return frame;
+    }
+
     private void init(){
         handler = new Handler();
         sheet = new SpriteSheet("/Sprite.png");
@@ -189,8 +199,6 @@ public class Game extends Canvas implements Runnable {
             createBufferStrategy(2);
             return;
         }
-
-
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.cyan);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -307,16 +315,20 @@ public class Game extends Canvas implements Runnable {
         return  null;
     }
 
-    public  static void main(String[] args){
+    public static void main(String[] args) throws MalformedURLException {
         Game game = new Game();
         JFrame frame = new JFrame(TITLE);
+        ImageIcon icon = new ImageIcon("D:\\Software Univerity Sofia softuni.bg\\C# Fundamental level\\Java\\TeamWorkProject\\PeshoGame\\trunk\\res\\icon.png");
+        frame.setIconImage(icon.getImage());
         frame.add(game);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
         game.start();
+
 
     }
 
