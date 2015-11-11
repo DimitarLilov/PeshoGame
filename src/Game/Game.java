@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable {
         addMouseMotionListener(mouse);
 
         elementsLevel1 = new String[]{"","public","class","HelloWorld","public","static","void","main(String[] args)","System.out.println","(\"Hello World!\")"};
-        elementsLevel2 = new String[]{"","q","w","e","r","t","y","u","i","o"}; // element lvl2
+        elementsLevel2 = new String[]{"","public","class","BasicLoop","public","static","void","main(String[] args)","for","(int i = 1; i <= 10; i++)","System.out.printf(\"%-2d\",i);", "\"1 2 3 4 5 6 7 8 9 10\""}; // element lvl2
         elementsLevel3 = new String[]{""}; // element lvl3
         elementsLevel4 = new String[]{"","public class","AlienGreeting","public static void","main(String[] args)","byte[] encryptedMsg =", "{97,121,121,32,108,109,97,111};","System.out.print(\"Translated:\"", "+ new String(encryptedMsg));"};
 
