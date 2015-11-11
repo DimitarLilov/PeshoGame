@@ -8,15 +8,12 @@ import gfx.Sprite;
 import gfx.SpriteSheet;
 import gfx.gul.Launcher;
 
-import javax.annotation.Resources;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class Game extends Canvas implements Runnable {
 
@@ -59,8 +56,6 @@ public class Game extends Canvas implements Runnable {
     public static Sprite[] beer;
     public static Sprite[] cannabis;
     public static String[] elementsLevel1 , elementsLevel2,elementsLevel3,elementsLevel4;
-    private static Window frame;
-
     public  Game(){
         Dimension size = new Dimension(WIDTH*SCALE,HEIGHT*SCALE);
         setPreferredSize(size);
@@ -68,11 +63,6 @@ public class Game extends Canvas implements Runnable {
         setMinimumSize(size);
 
     }
-
-    public static Window getFrame() {
-        return frame;
-    }
-
     private void init(){
         handler = new Handler();
         sheet = new SpriteSheet("/Sprite.png");
@@ -88,12 +78,10 @@ public class Game extends Canvas implements Runnable {
         addMouseMotionListener(mouse);
 
         elementsLevel1 = new String[]{"","public","class","HelloWorld","public","static","void","main(String[] args)","System.out.println","(\"Hello World!\")"};
-        elementsLevel2 = new String[]{"","public","class","BasicLoop","public","static","void","main(String[] args)","for","(int i = 1; i <= 10; i++)",
-                "System.out.printf(\"%-2d\",i);", "\"1 2 3 4 5 6 7 8 9 10\""}; // element lvl2
-        elementsLevel3 = new String[]{"","public class","ReverseNumber","public static void","main(String[] args)","int number = 7331024;",
-                "int reversed = 0, temp = 0;","while(number > 0){","temp = number % 10;","reversed = reversed * 10 + temp;","number = number / 10;}",
-                "System.out.println","(\"Reversed Number is: \" + reversed);"};
-        elementsLevel4 = new String[]{"","public class","AlienGreeting","public static void","main(String[] args)","byte[] encryptedMsg =", "{97,121,121,32,108,109,97,111};","System.out.print(\"Translated:\"", "+ new String(encryptedMsg));"};
+        elementsLevel2 = new String[]{"","public","class","BasicLoop","public","static","void","main(String[] args)","for","(int i = 1; i <= 10; i++)","System.out.printf(\"%-2d\",i);", "\"1 2 3 4 5 6 7 8 9 10\""}; // element lvl2
+        elementsLevel3 = new String[]{"","public","class","ReverseNumber","public","static","void","main(String[] args)","int number = 7331024;","int reversedNumber = 0, temp = 0;","while(number > 0)","temp = number % 10;","reversedNumber = reversedNumber * 10 + temp;","number = number / 10;"," System.out.println","(\"Reversed Number is: \" + reversedNumber);"}; // element lvl3
+        elementsLevel4 = new String[]{"","public","class","AlienGreeting","public static void","main(String[] args)","byte[] encryptedMsg =", "{97,121,121,32,108,109,97,111};","System.out.print(\"Translated:\"", "+ new String(encryptedMsg));"};
+
 
         player = new Sprite[6];
         bugs = new Sprite[6];
@@ -114,15 +102,6 @@ public class Game extends Canvas implements Runnable {
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(1,1,sheet);
             finalPrint="Hello World!";
-        }
-        if (level == 1) {
-            finalPrint = "qwertyuio";
-        }
-        if (level == 2) {
-            finalPrint = "Reversed Number is: 4201337";
-        }
-        if (level == 3) {
-            finalPrint = "Translated: ayy lmao";
         }
 
         for (int i = 0; i <player.length ; i++) {
@@ -211,6 +190,8 @@ public class Game extends Canvas implements Runnable {
             createBufferStrategy(2);
             return;
         }
+
+
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.cyan);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -252,6 +233,11 @@ public class Game extends Canvas implements Runnable {
             }
         }
         if (level ==2) {
+            if (phone && !drinkBeer){
+                g.drawImage(ImageLoad.loadImage("/phoneLvl3.png"),320,0,null);
+            } else if (phone){
+                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),320,0,null);
+            }
             elemetn = elementsLevel3.length;
             for (int i = 0; i < elemetn; i++) {
                 if (countCode >=i) g.drawString(elementsLevel3[i], 30, 90+i*20);
@@ -259,6 +245,11 @@ public class Game extends Canvas implements Runnable {
             }
         }
         if (level ==3) {
+            if (phone && !drinkBeer){
+                g.drawImage(ImageLoad.loadImage("/phoneLvl4.png"),320,0,null);
+            } else if (phone){
+                g.drawImage(ImageLoad.loadImage("/phoneDrinkBeer.png"),320,0,null);
+            }
             elemetn = elementsLevel4.length;
             for (int i = 0; i < elemetn; i++) {
                 if (countCode >=i) g.drawString(elementsLevel4[i], 30, 90+i*20);
@@ -299,6 +290,7 @@ public class Game extends Canvas implements Runnable {
     public static int getFrameHeight(){
         return HEIGHT*SCALE;
     }
+
     public static void switchLevel(){
         countCode =0;
         drinkBeer = false;
@@ -307,18 +299,19 @@ public class Game extends Canvas implements Runnable {
         if (level == 1){
             floor = new Sprite(4,1,sheet);
             grass = new Sprite(3,1,sheet);
-            finalPrint="level2";
+            finalPrint="1 2 3 4 5 6 7 8 9 10";
 
         }if (level == 2){
             floor = new Sprite(6,1,sheet);
             grass = new Sprite(5,1,sheet);
-            finalPrint="level3";
+            finalPrint="Reversed Number is 4201337";
         }if (level == 3){
             floor = new Sprite(2,1,sheet);
             grass = new Sprite(7,1,sheet);
-            finalPrint="level4";
+            finalPrint="Translated: ayy lmao";
         }
     }
+
     public static Rectangle getVisibleArea(){
         for (int i = 0; i < handler.entity.size(); i++) {
             Entity e = handler.entity.get(i);
@@ -327,10 +320,10 @@ public class Game extends Canvas implements Runnable {
         return  null;
     }
 
-    public static void main(String[] args) throws MalformedURLException {
+    public  static void main(String[] args){
         Game game = new Game();
         JFrame frame = new JFrame(TITLE);
-        ImageIcon icon = new ImageIcon("D:\\Software Univerity Sofia softuni.bg\\C# Fundamental level\\Java\\TeamWorkProject\\PeshoGame\\trunk\\res\\icon.png");
+        ImageIcon icon = new ImageIcon("res/icon.png");
         frame.setIconImage(icon.getImage());
         frame.add(game);
         frame.pack();
@@ -338,9 +331,7 @@ public class Game extends Canvas implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
         game.start();
-
 
     }
 

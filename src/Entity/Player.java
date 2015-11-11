@@ -90,6 +90,7 @@ public class Player extends Entity {
                         x = t.getX()-t.width;
                     }
                 }
+
                 if (getBounds().intersects(t.getBounds())&&t.getId()==Id.code&&!t.activated){
                     t.activated = true;
 

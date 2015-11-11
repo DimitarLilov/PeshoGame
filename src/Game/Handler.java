@@ -86,7 +86,7 @@ public class Handler {
             
         }
     }
-public void clearLevel(){
+    public void clearLevel(){
     entity.clear();
     tile.clear();
 }
